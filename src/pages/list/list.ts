@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
+import { EntryPage } from '../entry/entry';
+import { DetailsPage } from '../details/details';
+
 /**
  * Generated class for the ListPage page.
  *
@@ -19,6 +22,10 @@ export class ListPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ListPage');
+  }
+
+  createNewRecipe() {
+  	this.navCtrl.setRoot(EntryPage);
   }
 
 }
