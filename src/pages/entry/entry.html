@@ -15,7 +15,59 @@
 
 <ion-content padding>
 
-	<button primary (click)="listRecipies()">
-		List All Recipies
+	<form (ngSubmit)="logForm()">
+      <ion-item>
+        <ion-label>Recipe Name</ion-label>
+        <ion-input type="text" [(ngModel)]="recipe.title" name="title" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Recipe Source</ion-label>
+        <ion-input type="text" [(ngModel)]="recipe.source" name="source" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-list>
+        	<ion-badge item-end *ngFor="let item of ingredients; let i = index">
+        		{{ item.title }} {{ item.quantity }} 
+        		<ion-icon name="close" (click)="removeIngredient(i)"></ion-icon>
+        	</ion-badge>
+		</ion-list>
+      </ion-item>
+
+      <ion-item  id="ingredients-input-wrapper">
+	    <ion-label>Ingredient</ion-label>
+	    <ion-select [(ngModel)]="ingredient.title" name="ingredients">
+	      <ion-option value="flour">Flour</ion-option>
+	      <ion-option value="milk">Milk</ion-option>
+	      <ion-option value="oil">Oil</ion-option>
+	      <ion-option value="salt">Salt</ion-option>
+	      <ion-option value="sugar">Sugar</ion-option>
+	      <ion-option value="eggs">Eggs</ion-option>
+	    </ion-select>
+	  </ion-item>
+
+	  <ion-item id="quantity-input-wrapper">
+        <ion-label>Quantity</ion-label>
+        <ion-input type="text" [(ngModel)]="ingredient.quantity" name="quantity"></ion-input>
+      </ion-item>
+
+      <button ion-button id="ingredient-save-btn" (click)="saveIngredient()">
+      	Next Ingredient
+      </button>
+
+      <ion-item>
+        <ion-label>Instructions</ion-label>
+        <ion-textarea [(ngModel)]="recipe.instructions" name="instructions" required></ion-textarea>
+      </ion-item>
+
+      <button ion-button type="submit">
+      	Save Recipe
+      </button>
+
+    </form>
+
+	<button ion-button (click)="listRecipes()">
+		List All Recipes
 	</button>
 </ion-content>

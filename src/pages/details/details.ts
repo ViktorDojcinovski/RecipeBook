@@ -13,7 +13,7 @@ import { ListPage } from '../list/list';
 
 @Component({
   selector: 'page-details',
-  templateUrl: 'details.html',
+  templateUrl: 'details.html'
 })
 export class DetailsPage {
 
@@ -30,7 +30,7 @@ export class DetailsPage {
   	this.navCtrl.setRoot(EntryPage);
   }
 
-  listRecipies() {
+  listRecipes() {
   	this.navCtrl.setRoot(ListPage);
   }
 
