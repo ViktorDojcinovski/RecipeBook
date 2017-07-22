@@ -15,15 +15,26 @@
 
 <ion-content padding>
 
-	<form (ngSubmit)="logForm()">
+	<ion-item>
+		<small *ngIf="submitAttempt">
+			Please fill in all details accurately.
+		</small>
+	</ion-item>
+
+	<form novalidate [formGroup]="recipe" (ngSubmit)="logForm()">
       <ion-item>
         <ion-label>Recipe Name</ion-label>
-        <ion-input type="text" [(ngModel)]="recipe.title" name="title" required></ion-input>
+        <ion-input type="text" formControlName="title" required></ion-input>
       </ion-item>
+      	<ion-item>
+        	<small *ngIf="!recipe.controls.title.valid && (recipe.controls.title.dirty || submitAttempt)">
+        		Please enter a valid name.
+        	</small>
+    	</ion-item>
 
       <ion-item>
         <ion-label>Recipe Source</ion-label>
-        <ion-input type="text" [(ngModel)]="recipe.source" name="source" required></ion-input>
+        <ion-input type="text" formControlName="source" required></ion-input>
       </ion-item>
 
       <ion-item>
@@ -37,7 +48,7 @@
 
       <ion-item  id="ingredients-input-wrapper">
 	    <ion-label>Ingredient</ion-label>
-	    <ion-select [(ngModel)]="ingredient.title" name="ingredients">
+	    <ion-select formControlName="ingredientTtl">
 	      <ion-option value="flour">Flour</ion-option>
 	      <ion-option value="milk">Milk</ion-option>
 	      <ion-option value="oil">Oil</ion-option>
@@ -49,17 +60,23 @@
 
 	  <ion-item id="quantity-input-wrapper">
         <ion-label>Quantity</ion-label>
-        <ion-input type="text" [(ngModel)]="ingredient.quantity" name="quantity"></ion-input>
+        <ion-input type="text" formControlName="ingredientQnt"></ion-input>
       </ion-item>
 
-      <button ion-button id="ingredient-save-btn" (click)="saveIngredient()">
+      <button ion-button id="ingredient-save-btn" (click)="saveIngredient()" [disabled]="(recipe.controls.ingredientQnt.pristine || recipe.controls.ingredientTtl.pristine)">
       	Next Ingredient
       </button>
 
       <ion-item>
         <ion-label>Instructions</ion-label>
-        <ion-textarea [(ngModel)]="recipe.instructions" name="instructions" required></ion-textarea>
+        <ion-textarea formControlName="instructions" required></ion-textarea>
       </ion-item>
+
+        <ion-item>
+        	<small *ngIf="!recipe.controls.instructions.valid && (recipe.controls.instructions.dirty || submitAttempt)">
+        		Please enter a valid instruction (min 40 letters).
+        	</small>
+    	</ion-item>
 
       <button ion-button type="submit">
       	Save Recipe

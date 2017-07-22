@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 import { ListPage } from '../list/list';
 
@@ -16,14 +17,25 @@ import { ListPage } from '../list/list';
 })
 export class EntryPage {
 
-constructor(public navCtrl: NavController, public navParams: NavParams) {
+	private recipe : FormGroup;
+	private ingredients = [];
+
+	submitAttempt: boolean = false;
+
+
+constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder) {
 	this.navCtrl = navCtrl;
 	this.navParams = navParams;
-}
 
-  	recipe = {}; 
-  	ingredient = {};
-  	ingredients = [];
+	this.recipe = this.formBuilder.group({
+		title: ['', Validators.compose([Validators.minLength(5), Validators.pattern('[a-zA-Z0-9]*'), Validators.required])],
+      	source: [''],
+      	ingredientTtl: ['', Validators.minLength(3)],
+      	ingredientQnt: ['', Validators.minLength(3)],
+      	instructions: ['', Validators.compose([Validators.minLength(40), Validators.required])]
+
+	});
+}
 
   	ionViewDidLoad() {
     	console.log('ionViewDidLoad EntryPage');
@@ -38,8 +50,9 @@ constructor(public navCtrl: NavController, public navParams: NavParams) {
 	*
 	*/
   	saveIngredient() {
-  		this.ingredients.push({title: this.ingredient['title'], quantity: this.ingredient['quantity']});
+  		this.ingredients.push({title: this.recipe.value.ingredientTtl, quantity: this.recipe.value.ingredientQnt});
   		this.clearInputIngredient();
+
   	}
 
    /**
@@ -52,13 +65,25 @@ constructor(public navCtrl: NavController, public navParams: NavParams) {
   	}
 
   	logForm() {
-  		this.recipe['ingredients'] = this.ingredients;
-    	console.log(this.recipe)
+
+  		this.submitAttempt = true;
+
+  		this.recipe.value['ingredients'] = this.ingredients;
+  		delete this.recipe.value['ingredientQnt'];
+  		delete this.recipe.value['ingredientTtl'];
+
+
+  		if(this.recipe.valid){
+
+    		console.log('The form is valid, yeah!');
+
+    		
+  		}
   	}
 
   	clearInputIngredient () {
-  		this.ingredient['title'] = '';
-  		this.ingredient['quantity'] = '';
+  		(this.recipe.controls['ingredientTtl']).setValue('', { onlySelf: true });
+  		(this.recipe.controls['ingredientQnt']).setValue('', { onlySelf: true });
   	}
 
 }
