@@ -14,14 +14,37 @@
 
 
 <ion-content padding>
-	Details Page Content goes here 
+	<ion-row>
+		<ion-col col-6 col-sm-12 col-md-6 col-lg-6 col-xl-6>
+			<ion-item>
+				<p>Recipe Name:</p>
+				{{ recipe.title }}
+			</ion-item> 
+
+			<ion-item>
+				<p>Recipe Source:</p>
+				{{ recipe.source }}
+			</ion-item>
+
+			<ion-item>
+				<p>Recipe Ingredients:</p>
+				<ion-list>
+		        	<ion-badge item-end *ngFor="let item of recipe['ingredients']; let i = index">
+		        		{{ item.title }} {{ item.quantity }} 
+		        	</ion-badge>
+				</ion-list>
+			</ion-item>
+		</ion-col>
+		<ion-col col-6 col-sm-12 col-md-6 col-lg-6 col-xl-6>
+			<ion-item>
+				<p>Recipe Instructions:</p>
+				{{ recipe.instructions }}
+			</ion-item>
+		</ion-col>
+	</ion-row>
 
 	<button ion-button (click)="createNewRecipe()">
 		Create New Recipe
-	</button>
-
-	<button ion-button (click)="listRecipes()">
-		List All Recipes
 	</button>
 </ion-content>
 

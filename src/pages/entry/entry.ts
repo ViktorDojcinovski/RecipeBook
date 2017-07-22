@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import {Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { RecipesProvider } from '../../providers/recipes/recipes';
 
 import { ListPage } from '../list/list';
 
@@ -15,7 +16,7 @@ import { ListPage } from '../list/list';
   selector: 'page-entry',
   templateUrl: 'entry.html',
 })
-export class EntryPage {
+export class EntryPage {s
 
 	private recipe : FormGroup;
 	private ingredients = [];
@@ -23,12 +24,13 @@ export class EntryPage {
 	submitAttempt: boolean = false;
 
 
-constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder) {
+constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, public recipesProvider: RecipesProvider) {
 	this.navCtrl = navCtrl;
 	this.navParams = navParams;
+	this.recipesProvider = recipesProvider;
 
 	this.recipe = this.formBuilder.group({
-		title: ['', Validators.compose([Validators.minLength(5), Validators.pattern('[a-zA-Z0-9]*'), Validators.required])],
+		title: ['', Validators.compose([Validators.minLength(5), Validators.required])],
       	source: [''],
       	ingredientTtl: ['', Validators.minLength(3)],
       	ingredientQnt: ['', Validators.minLength(3)],
@@ -75,9 +77,11 @@ constructor(public navCtrl: NavController, public navParams: NavParams, private 
 
   		if(this.recipe.valid){
 
-    		console.log('The form is valid, yeah!');
+    		this.recipesProvider.allRecipes.push(this.recipe.value);
 
-    		
+    		console.log(this.recipesProvider);
+
+    		this.navCtrl.setRoot(ListPage);
   		}
   	}
 

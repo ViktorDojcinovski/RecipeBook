@@ -55,6 +55,11 @@
 	      <ion-option value="salt">Salt</ion-option>
 	      <ion-option value="sugar">Sugar</ion-option>
 	      <ion-option value="eggs">Eggs</ion-option>
+	      <ion-option value="tomatoes">Tomatoes</ion-option>
+	      <ion-option value="peppers">Peppers</ion-option>
+	      <ion-option value="cheese">Cheese</ion-option>
+	      <ion-option value="potatoes">Potatoes</ion-option>
+	      <ion-option value="meat">Meat</ion-option>
 	    </ion-select>
 	  </ion-item>
 
@@ -64,7 +69,7 @@
       </ion-item>
 
       <button ion-button id="ingredient-save-btn" (click)="saveIngredient()" [disabled]="(recipe.controls.ingredientQnt.pristine || recipe.controls.ingredientTtl.pristine)">
-      	Next Ingredient
+      	Save Ingredient
       </button>
 
       <ion-item>

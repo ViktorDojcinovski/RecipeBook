@@ -14,7 +14,62 @@
 
 
 <ion-content padding>
-	List Page Content goes here 
+	<ion-grid>
+	  	<ion-row>
+		    <ion-col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2>
+		      Recipe ID
+		    </ion-col>
+		    <ion-col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2>
+		      Recipe Name
+		    </ion-col>
+		    <ion-col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2>
+		      Recipe Source
+		    </ion-col>
+		    <ion-col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2>
+		      Recipe Ingredients
+		    </ion-col>
+		    <ion-col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2>
+		      Recipe Instructions
+		    </ion-col>
+		    <ion-col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2>
+		      Actions
+		    </ion-col>
+	    </ion-row>
+
+	    <!-- Loop the AllRecipies Array -->
+	    <ion-row *ngFor="let recipe of allRecipes; let i = index">
+		    <ion-col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2>
+				{{ i }}
+		    </ion-col>
+		    <ion-col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2>
+		      {{recipe.title}}
+		    </ion-col>
+		    <ion-col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2>
+		      {{recipe.source}}
+		    </ion-col>
+		    <ion-col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2>
+		      	<ion-list>
+		        	<ion-badge item-end *ngFor="let item of recipe.ingredients; let i = index">
+		        		{{ item.title }} {{ item.quantity }} 
+		        	</ion-badge>
+				</ion-list>
+		    </ion-col>
+		    <ion-col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2>
+		      {{recipe.instructions}}
+		    </ion-col>
+		    <ion-col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2>
+		      	<button ion-button color="light" (click)="goToRecipeDetails(i)">
+					See More
+				</button>
+
+				<button ion-button color="danger" (click)="showPrompt(i)">
+					Delete
+				</button>
+		    </ion-col>
+		  </ion-row>
+
+
+	</ion-grid>
 
 	<button ion-button (click)="createNewRecipe()">
 		Create New Recipe

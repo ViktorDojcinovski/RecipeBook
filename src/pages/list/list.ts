@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { RecipesProvider } from '../../providers/recipes/recipes';
+import { AlertController } from 'ionic-angular';
 
 import { EntryPage } from '../entry/entry';
 import { DetailsPage } from '../details/details';
@@ -17,8 +19,13 @@ import { DetailsPage } from '../details/details';
 })
 export class ListPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public recipesProvider: RecipesProvider, public alertCtrl: AlertController) {
+      this.navCtrl = navCtrl;
+      this.navParams = navParams;
+      this.recipesProvider = recipesProvider;
   }
+
+  allRecipes = this.recipesProvider.allRecipes;
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ListPage');
@@ -26,6 +33,36 @@ export class ListPage {
 
   createNewRecipe() {
   	this.navCtrl.setRoot(EntryPage);
+  }
+
+  goToRecipeDetails (recipe) {
+      this.navCtrl.push(DetailsPage, { recipeID: recipe });
+  }
+
+  deleteRecipe (recipeID) {
+    this.recipesProvider.allRecipes.splice(recipeID, 1);
+  }
+
+  showPrompt(recipeID) {
+    let prompt = this.alertCtrl.create({
+      title: 'Are you sure?',
+      message: "If you really want to delete this recipe click the Confirm button",
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Confirm',
+          handler: data => {
+            this.deleteRecipe (recipeID);
+          }
+        }
+      ]
+    });
+    prompt.present();
   }
 
 }

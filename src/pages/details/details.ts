@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { RecipesProvider } from '../../providers/recipes/recipes';
 
 import { EntryPage } from '../entry/entry';
 import { ListPage } from '../list/list';
@@ -17,10 +18,14 @@ import { ListPage } from '../list/list';
 })
 export class DetailsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public recipesProvider: RecipesProvider) {
   	this.navCtrl = navCtrl;
   	this.navParams = navParams;
+  	this.recipesProvider = recipesProvider;
   }
+
+  recipe = this.recipesProvider.allRecipes[this.navParams.get("recipeID")];
+  
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DetailsPage');
@@ -28,10 +33,6 @@ export class DetailsPage {
 
   createNewRecipe() {
   	this.navCtrl.setRoot(EntryPage);
-  }
-
-  listRecipes() {
-  	this.navCtrl.setRoot(ListPage);
   }
 
 }

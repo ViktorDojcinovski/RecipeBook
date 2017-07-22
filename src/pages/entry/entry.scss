@@ -5,23 +5,22 @@ page-entry {
 		color: map-get($colors, danger) !important;
 	}
 
+	button{
+		min-width:200px;
+	}
+
 	@media only screen and (min-width: 1200px) {
 	    form {
 	    	width:40%;
 
 	    	#ingredients-input-wrapper {
 	    		float:left;
-	    		width: 50%;
+	    		width: 75%;
 	    	}
 
 	    	#quantity-input-wrapper {
 	    		float:left;
 	    		width:25%;
-	    	}
-
-	    	#ingredient-save-btn {
-	    		float:left;
-	    		width:20%;
 	    	}
 	    	ion-icon[name='close'] {
 	    		cursor:pointer;
