@@ -16,7 +16,7 @@
 <ion-content padding>
 	<section offset-xl-1>
 		<ion-grid>
-		  	<ion-row>
+		  	<ion-row id="headings">
 			    <ion-col col-12 col-sm-12 col-md-6 col-lg-1 col-xl-1>
 			      Recipe ID
 			    </ion-col>
@@ -43,28 +43,46 @@
 		    <!-- Loop the AllRecipies Array -->
 		    <ion-row *ngFor="let recipe of allRecipes; let i = index">
 			    <ion-col col-12 col-sm-12 col-md-6 col-lg-1 col-xl-1>
+			    	<small class="caption_responsivewise">
+			    		Recipe ID
+			    	</small>
 					{{ i + 1 }} <!-- Increase by one the zero indexed array. -->
 			    </ion-col>
 			    <ion-col col-12 col-sm-12 col-md-6 col-lg-1 col-xl-1>
-			      {{recipe.title}}
+			    	<small class="caption_responsivewise">
+			    		Recipe Name
+			    	</small>
+			      	{{recipe.title}}
 			    </ion-col>
 			    <ion-col col-12 col-sm-12 col-md-6 col-lg-1 col-xl-1>
-			      {{recipe.source}}
+			    	<small class="caption_responsivewise">
+			    		Recipe source
+			    	</small>
+			      	{{recipe.source}}
 			    </ion-col>
 			    <ion-col col-12 col-sm-12 col-md-6 col-lg-1 col-xl-1>
 			      <span *ngIf='recipe.prepTimeH != 0'>{{recipe.prepTimeH}} h</span> <span>{{recipe.prepTimeM}} m</span>
 			    </ion-col>
 			    <ion-col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2>
 			      	<ion-list>
+			      		<small class="caption_responsivewise">
+				    		Recipe Ingredients
+				    	</small>
 			        	<ion-badge item-end *ngFor="let item of recipe.ingredients.slice(0,3); let i = index">
 						    {{ item.title }} {{ item.quantity }}
 			        	</ion-badge>
 					</ion-list>
 			    </ion-col>
 			    <ion-col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2>
-			      {{ truncate(recipe.instructions, 50, true) }}
+			    	<small class="caption_responsivewise">
+			    		Instructions
+			    	</small>
+			      	{{ truncate(recipe.instructions, 50, true) }}
 			    </ion-col>
 			    <ion-col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2>
+			    	<small class="caption_responsivewise">
+			    		Actions
+			    	</small>
 			      	<button ion-button color="light" (click)="goToRecipeDetails(i)">
 						See More
 					</button>

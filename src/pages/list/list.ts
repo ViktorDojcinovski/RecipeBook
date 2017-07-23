@@ -25,6 +25,9 @@ export class ListPage {
       this.recipesProvider = recipesProvider;
   }
 
+  /**
+  * Populate this array with the preserved value of the array obtained from the Provider(Service).
+  */
   allRecipes = this.recipesProvider.allRecipes;
 
   ionViewDidLoad() {
@@ -39,10 +42,22 @@ export class ListPage {
       this.navCtrl.push(DetailsPage, { recipeID: recipe });
   }
 
+  /**
+  * Handler executed after confirm deletion.
+  * 
+  * param integer recipeID
+  *
+  */
   deleteRecipe (recipeID) {
     this.recipesProvider.allRecipes.splice(recipeID, 1);
   }
 
+  /**
+  * Shows alert box after delete button is clicked.
+  * 
+  * param integer recipeID
+  *
+  */
   showPrompt(recipeID) {
     let prompt = this.alertCtrl.create({
       title: 'Are you sure?',
@@ -65,6 +80,14 @@ export class ListPage {
     prompt.present();
   }
 
+  /**
+  * Truncates a string given to a substring.
+  * If third parametar is true truncates considering an end of a word.
+  *
+  * param string s
+  * param integer n
+  * param boolean useWordBoundary
+  */
   truncate(s: string, n, useWordBoundary) {
     if (s.length <= n) { return s; }
     var subString = s.substr(0, n-1);

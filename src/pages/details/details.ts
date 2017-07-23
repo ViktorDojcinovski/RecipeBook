@@ -24,6 +24,10 @@ export class DetailsPage {
   	this.recipesProvider = recipesProvider;
   }
 
+
+  /**
+  * Populate this array with the preserved value of the array obtained from the Provider(Service).
+  */
   recipe = this.recipesProvider.allRecipes[this.navParams.get("recipeID")];
   
 

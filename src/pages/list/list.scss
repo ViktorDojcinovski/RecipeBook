@@ -8,5 +8,23 @@ page-list {
 			border-radius:5px;
 			margin-right:1% !important;
 		}
+		#headings {
+
+		}
+		.caption_responsivewise {
+			display:none;
+		}
 	}
+
+	@media only screen and (max-width: 480px) {
+		#headings {
+			display:none !important;
+		}
+
+		.caption_responsivewise {
+			display: block !important;
+    		margin-bottom: 10px;
+		}
+	}
+
 }

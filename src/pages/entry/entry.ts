@@ -18,7 +18,14 @@ import { ListPage } from '../list/list';
 })
 export class EntryPage {s
 
+
+	/**
+	* Instantiata FormGroup object for keeping control over inserted values in the model-template form.
+	*/
 	private recipe : FormGroup;
+	/**
+	* Empty array for keeping the ingredients added for this recipe.
+	*/
 	private ingredients = [];
 
 	submitAttempt: boolean = false;
@@ -49,7 +56,7 @@ constructor(public navCtrl: NavController, public navParams: NavParams, private 
   	}
 
    /**
-	* Insert ingredient into the ingredients.
+	* Insert ingredient into the ingredients array.
 	*
 	*/
   	saveIngredient() {
@@ -58,7 +65,7 @@ constructor(public navCtrl: NavController, public navParams: NavParams, private 
   	}
 
    /**
-	* Remove ingredient from the ingredients.
+	* Remove ingredient from the ingredients array.
 	*
 	* param integer i
 	*/
@@ -66,6 +73,13 @@ constructor(public navCtrl: NavController, public navParams: NavParams, private 
   		this.ingredients.splice(i , 1);
   	}
 
+  	/**
+  	*
+	* Save the recipe with the form parametars inserted.
+	* The ingredients array is appended to the model of the FormGroup.
+	* Then preserve the value to the array, member of the Provider(Service) injected
+	*
+	*/
   	logForm() {
 
   		this.submitAttempt = true;
@@ -84,6 +98,12 @@ constructor(public navCtrl: NavController, public navParams: NavParams, private 
   		}
   	}
 
+  	/**
+  	*
+	* Reset to empty form fields for inserting the ingredient title
+	* and for ingredient quantity or ingredientTtl and ingredientQnt respectivly.
+	*
+	*/
   	clearInputIngredient () {
   		(this.recipe.controls['ingredientTtl']).setValue('', { onlySelf: true });
   		(this.recipe.controls['ingredientQnt']).setValue('', { onlySelf: true });
