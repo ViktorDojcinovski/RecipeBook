@@ -14,27 +14,24 @@
 
 
 <ion-content padding>
-
-	<ion-item>
-		<small *ngIf="submitAttempt">
-			Please fill in all details accurately.
-		</small>
-	</ion-item>
-
 	<form novalidate [formGroup]="recipe" (ngSubmit)="logForm()">
       <ion-item>
         <ion-label>Recipe Name</ion-label>
-        <ion-input type="text" formControlName="title" required></ion-input>
+        <ion-input type="text" formControlName="title"></ion-input>
       </ion-item>
-      	<ion-item>
-        	<small *ngIf="!recipe.controls.title.valid && (recipe.controls.title.dirty || submitAttempt)">
-        		Please enter a valid name.
-        	</small>
+      	<ion-item *ngIf="!recipe.controls.title.valid && (recipe.controls.title.dirty || submitAttempt)">
+	      	<ion-card>
+				<ion-card-content>
+					<small>
+						Please enter a valid name.
+					</small>
+				</ion-card-content>
+			</ion-card>
     	</ion-item>
 
       <ion-item>
         <ion-label>Recipe Source</ion-label>
-        <ion-input type="text" formControlName="source" required></ion-input>
+        <ion-input type="text" formControlName="source"></ion-input>
       </ion-item>
 
       <ion-item>
@@ -68,28 +65,75 @@
         <ion-input type="text" formControlName="ingredientQnt"></ion-input>
       </ion-item>
 
-      <button ion-button id="ingredient-save-btn" (click)="saveIngredient()" [disabled]="(recipe.controls.ingredientQnt.pristine || recipe.controls.ingredientTtl.pristine)">
+      <button type="button" ion-button id="ingredient-save-btn" (click)="saveIngredient()" [disabled]="(recipe.controls.ingredientQnt.pristine || recipe.controls.ingredientTtl.pristine)">
       	Save Ingredient
       </button>
 
+      	<ion-item *ngIf="submitAttempt && ingredients.length < 1">
+	      	<ion-card>
+				<ion-card-content>
+					<small>
+						Please fill in at least one ingredient.
+					</small>
+				</ion-card-content>
+			</ion-card>
+		</ion-item>
+
       <ion-item>
-        <ion-label>Instructions</ion-label>
-        <ion-textarea formControlName="instructions" required></ion-textarea>
+      		<p>Preparation Time</p>
       </ion-item>
 
-        <ion-item>
-        	<small *ngIf="!recipe.controls.instructions.valid && (recipe.controls.instructions.dirty || submitAttempt)">
-        		Please enter a valid instruction (min 40 letters).
-        	</small>
-    	</ion-item>
+      <ion-item id="hours-input-wrapper">
+        <ion-label>Hours</ion-label>
+        <ion-input type="number" formControlName="prepTimeH"></ion-input>
+      </ion-item>
 
-      <button ion-button type="submit">
-      	Save Recipe
-      </button>
+      	<ion-item *ngIf="!recipe.controls.prepTimeH.valid && (recipe.controls.prepTimeH.dirty || submitAttempt)">
+	      	<ion-card>
+				<ion-card-content>
+					<small>
+						Please enter value between 0 and 10.
+					</small>
+				</ion-card-content>
+			</ion-card>
+		</ion-item>
 
+      <ion-item id="minutes-input-wrapper">
+        <ion-label>Minutes</ion-label>
+        <ion-input type="number" formControlName="prepTimeM"></ion-input>
+      </ion-item>
+
+      	<ion-item *ngIf="!recipe.controls.prepTimeM.valid && (recipe.controls.prepTimeM.dirty || submitAttempt)">
+	      	<ion-card>
+				<ion-card-content>
+					<small>
+						Please enter value between 0 and 59.
+					</small>
+				</ion-card-content>
+			</ion-card>
+		</ion-item>
+
+      <ion-item>
+        <ion-label>Instructions</ion-label>
+        <ion-textarea formControlName="instructions"></ion-textarea>
+      </ion-item>
+
+      	<ion-item *ngIf="!recipe.controls.instructions.valid && (recipe.controls.instructions.dirty || submitAttempt)">
+	      	<ion-card>
+				<ion-card-content>
+					<small>
+						Please enter a valid instruction (min 40 letters).
+					</small>
+				</ion-card-content>
+			</ion-card>
+		</ion-item>
+    
+	    <button ion-button type="submit">
+	      	Save Recipe
+	    </button>
     </form>
 
-	<button ion-button (click)="listRecipes()">
-		List All Recipes
-	</button>
+		<button ion-button (click)="listRecipes()">
+			List All Recipes
+		</button>
 </ion-content>

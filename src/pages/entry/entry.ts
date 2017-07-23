@@ -32,10 +32,11 @@ constructor(public navCtrl: NavController, public navParams: NavParams, private 
 	this.recipe = this.formBuilder.group({
 		title: ['', Validators.compose([Validators.minLength(5), Validators.required])],
       	source: [''],
-      	ingredientTtl: ['', Validators.minLength(3)],
-      	ingredientQnt: ['', Validators.minLength(3)],
+      	ingredientTtl: ['', Validators.minLength(1)],
+      	ingredientQnt: ['', Validators.minLength(1)],
+      	prepTimeH: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]')])],
+      	prepTimeM: ['', Validators.compose([Validators.required, Validators.pattern('[0-5]?[0-9]')])],
       	instructions: ['', Validators.compose([Validators.minLength(40), Validators.required])]
-
 	});
 }
 
@@ -54,7 +55,6 @@ constructor(public navCtrl: NavController, public navParams: NavParams, private 
   	saveIngredient() {
   		this.ingredients.push({title: this.recipe.value.ingredientTtl, quantity: this.recipe.value.ingredientQnt});
   		this.clearInputIngredient();
-
   	}
 
    /**
@@ -74,8 +74,7 @@ constructor(public navCtrl: NavController, public navParams: NavParams, private 
   		delete this.recipe.value['ingredientQnt'];
   		delete this.recipe.value['ingredientTtl'];
 
-
-  		if(this.recipe.valid){
+  		if(this.recipe.valid && this.recipe.value.ingredients.length > 0){
 
     		this.recipesProvider.allRecipes.push(this.recipe.value);
 

@@ -16,14 +16,17 @@
 <ion-content padding>
 	<ion-grid>
 	  	<ion-row>
-		    <ion-col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2>
+		    <ion-col col-12 col-sm-12 col-md-6 col-lg-1 col-xl-1>
 		      Recipe ID
 		    </ion-col>
-		    <ion-col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2>
+		    <ion-col col-12 col-sm-12 col-md-6 col-lg-1 col-xl-1>
 		      Recipe Name
 		    </ion-col>
-		    <ion-col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2>
+		    <ion-col col-12 col-sm-12 col-md-6 col-lg-1 col-xl-1>
 		      Recipe Source
+		    </ion-col>
+		    <ion-col col-12 col-sm-12 col-md-6 col-lg-1 col-xl-1>
+		      Preparation Time
 		    </ion-col>
 		    <ion-col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2>
 		      Recipe Ingredients
@@ -38,24 +41,29 @@
 
 	    <!-- Loop the AllRecipies Array -->
 	    <ion-row *ngFor="let recipe of allRecipes; let i = index">
-		    <ion-col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2>
-				{{ i }}
+		    <ion-col col-12 col-sm-12 col-md-6 col-lg-1 col-xl-1>
+				{{ i + 1 }} <!-- Increase by one the zero indexed array. -->
 		    </ion-col>
-		    <ion-col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2>
+		    <ion-col col-12 col-sm-12 col-md-6 col-lg-1 col-xl-1>
 		      {{recipe.title}}
 		    </ion-col>
-		    <ion-col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2>
+		    <ion-col col-12 col-sm-12 col-md-6 col-lg-1 col-xl-1>
 		      {{recipe.source}}
+		    </ion-col>
+		    <ion-col col-12 col-sm-12 col-md-6 col-lg-1 col-xl-1>
+		      <span *ngIf='recipe.prepTimeH != 0'>{{recipe.prepTimeH}} h</span> <span>{{recipe.prepTimeM}} m</span>
 		    </ion-col>
 		    <ion-col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2>
 		      	<ion-list>
-		        	<ion-badge item-end *ngFor="let item of recipe.ingredients; let i = index">
-		        		{{ item.title }} {{ item.quantity }} 
+		        	<ion-badge item-end *ngFor="let item of recipe.ingredients.slice(0,3); let i = index">
+			        	<span *ngIf="i < 3">
+					        {{ item.title }} {{ item.quantity }}
+					    </span>
 		        	</ion-badge>
 				</ion-list>
 		    </ion-col>
 		    <ion-col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2>
-		      {{recipe.instructions}}
+		      {{ truncate(recipe.instructions, 50, true) }}
 		    </ion-col>
 		    <ion-col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2>
 		      	<button ion-button color="light" (click)="goToRecipeDetails(i)">
