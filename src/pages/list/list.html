@@ -7,79 +7,77 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title> Recipie List </ion-title>
+    <ion-title> Soursico Chef - Recipe List </ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-	<ion-grid>
-	  	<ion-row>
-		    <ion-col col-12 col-sm-12 col-md-6 col-lg-1 col-xl-1>
-		      Recipe ID
-		    </ion-col>
-		    <ion-col col-12 col-sm-12 col-md-6 col-lg-1 col-xl-1>
-		      Recipe Name
-		    </ion-col>
-		    <ion-col col-12 col-sm-12 col-md-6 col-lg-1 col-xl-1>
-		      Recipe Source
-		    </ion-col>
-		    <ion-col col-12 col-sm-12 col-md-6 col-lg-1 col-xl-1>
-		      Preparation Time
-		    </ion-col>
-		    <ion-col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2>
-		      Recipe Ingredients
-		    </ion-col>
-		    <ion-col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2>
-		      Recipe Instructions
-		    </ion-col>
-		    <ion-col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2>
-		      Actions
-		    </ion-col>
-	    </ion-row>
+	<section offset-xl-1>
+		<ion-grid>
+		  	<ion-row>
+			    <ion-col col-12 col-sm-12 col-md-6 col-lg-1 col-xl-1>
+			      Recipe ID
+			    </ion-col>
+			    <ion-col col-12 col-sm-12 col-md-6 col-lg-1 col-xl-1>
+			      Recipe Name
+			    </ion-col>
+			    <ion-col col-12 col-sm-12 col-md-6 col-lg-1 col-xl-1>
+			      Recipe Source
+			    </ion-col>
+			    <ion-col col-12 col-sm-12 col-md-6 col-lg-1 col-xl-1>
+			      Preparation Time
+			    </ion-col>
+			    <ion-col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2>
+			      Recipe Ingredients
+			    </ion-col>
+			    <ion-col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2>
+			      Recipe Instructions
+			    </ion-col>
+			    <ion-col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2>
+			      Actions
+			    </ion-col>
+		    </ion-row>
 
-	    <!-- Loop the AllRecipies Array -->
-	    <ion-row *ngFor="let recipe of allRecipes; let i = index">
-		    <ion-col col-12 col-sm-12 col-md-6 col-lg-1 col-xl-1>
-				{{ i + 1 }} <!-- Increase by one the zero indexed array. -->
-		    </ion-col>
-		    <ion-col col-12 col-sm-12 col-md-6 col-lg-1 col-xl-1>
-		      {{recipe.title}}
-		    </ion-col>
-		    <ion-col col-12 col-sm-12 col-md-6 col-lg-1 col-xl-1>
-		      {{recipe.source}}
-		    </ion-col>
-		    <ion-col col-12 col-sm-12 col-md-6 col-lg-1 col-xl-1>
-		      <span *ngIf='recipe.prepTimeH != 0'>{{recipe.prepTimeH}} h</span> <span>{{recipe.prepTimeM}} m</span>
-		    </ion-col>
-		    <ion-col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2>
-		      	<ion-list>
-		        	<ion-badge item-end *ngFor="let item of recipe.ingredients.slice(0,3); let i = index">
-			        	<span *ngIf="i < 3">
-					        {{ item.title }} {{ item.quantity }}
-					    </span>
-		        	</ion-badge>
-				</ion-list>
-		    </ion-col>
-		    <ion-col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2>
-		      {{ truncate(recipe.instructions, 50, true) }}
-		    </ion-col>
-		    <ion-col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2>
-		      	<button ion-button color="light" (click)="goToRecipeDetails(i)">
-					See More
-				</button>
+		    <!-- Loop the AllRecipies Array -->
+		    <ion-row *ngFor="let recipe of allRecipes; let i = index">
+			    <ion-col col-12 col-sm-12 col-md-6 col-lg-1 col-xl-1>
+					{{ i + 1 }} <!-- Increase by one the zero indexed array. -->
+			    </ion-col>
+			    <ion-col col-12 col-sm-12 col-md-6 col-lg-1 col-xl-1>
+			      {{recipe.title}}
+			    </ion-col>
+			    <ion-col col-12 col-sm-12 col-md-6 col-lg-1 col-xl-1>
+			      {{recipe.source}}
+			    </ion-col>
+			    <ion-col col-12 col-sm-12 col-md-6 col-lg-1 col-xl-1>
+			      <span *ngIf='recipe.prepTimeH != 0'>{{recipe.prepTimeH}} h</span> <span>{{recipe.prepTimeM}} m</span>
+			    </ion-col>
+			    <ion-col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2>
+			      	<ion-list>
+			        	<ion-badge item-end *ngFor="let item of recipe.ingredients.slice(0,3); let i = index">
+						    {{ item.title }} {{ item.quantity }}
+			        	</ion-badge>
+					</ion-list>
+			    </ion-col>
+			    <ion-col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2>
+			      {{ truncate(recipe.instructions, 50, true) }}
+			    </ion-col>
+			    <ion-col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2>
+			      	<button ion-button color="light" (click)="goToRecipeDetails(i)">
+						See More
+					</button>
 
-				<button ion-button color="danger" (click)="showPrompt(i)">
-					Delete
-				</button>
-		    </ion-col>
-		  </ion-row>
+					<button ion-button color="danger" (click)="showPrompt(i)">
+						Delete
+					</button>
+			    </ion-col>
+			  </ion-row>
+		</ion-grid>
 
-
-	</ion-grid>
-
-	<button ion-button (click)="createNewRecipe()">
-		Create New Recipe
-	</button>
+		<button ion-button (click)="createNewRecipe()">
+			Create New Recipe
+		</button>
+	</section>
 </ion-content>

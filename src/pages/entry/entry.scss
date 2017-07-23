@@ -1,32 +1,31 @@
 page-entry {
+	ion-content {
+		background-color:#f0ad4e !important;
 
-	button{
-		min-width:200px;
-	}
-
-	ion-card {
-
-		background-color:map-get($colors, danger) !important;
-		
-		ion-card-content {
-			small{
-				color:map-get($colors, light);
-			}
+		ion-item {
+			margin-bottom:10px !important;
+			background-color: rgba(255, 255, 255, 0.8) !important;
+			border-radius:5px;
 		}
 	}
 
-	@media only screen and (min-width: 1200px) {
-	    form {
-	    	width:40%;
+	#main-entry-content{
+		
+
+		button{
+			min-width:200px;
+		}
+
+		form {
 
 	    	#ingredients-input-wrapper {
 	    		float:left;
-	    		width: 75%;
+	    		width: 70%;
+	    		margin-right:5%;
 	    	}
 
 	    	#hours-input-wrapper, #minutes-input-wrapper {
 	    		float:left;
-	    		width: 50%;
 	    	}
 
 	    	#quantity-input-wrapper {
@@ -38,6 +37,16 @@ page-entry {
 	    		padding-left:1vw;
 	    	}
 
+	    	ion-card {
+
+				background-color:map-get($colors, danger) !important;
+
+				ion-card-content {
+					small{
+						color:map-get($colors, light);
+					}
+				}
+			}
 	    }
 	}
 }

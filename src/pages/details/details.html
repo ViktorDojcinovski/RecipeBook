@@ -7,50 +7,52 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title> Recipe Details </ion-title>
+    <ion-title> Soursico Chef - Recipe Details </ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-	<ion-row>
-		<ion-col col-6 col-sm-12 col-md-6 col-lg-6 col-xl-6>
-			<ion-item>
-				<p>Recipe Name:</p>
-				{{ recipe.title }}
-			</ion-item> 
+	<section offset-xl-1>
+		<ion-row>
+			<ion-col col-6 col-sm-12 col-md-6 col-lg-6 col-xl-6>
+				<ion-item>
+					<p>Recipe Name:</p>
+					{{ recipe.title }}
+				</ion-item> 
 
-			<ion-item>
-				<p>Recipe Source:</p>
-				{{ recipe.source }}
-			</ion-item>
+				<ion-item>
+					<p>Recipe Source:</p>
+					{{ recipe.source }}
+				</ion-item>
 
-			<ion-item>
-				<p>Recipe Ingredients:</p>
-				<ion-list>
-		        	<ion-badge item-end *ngFor="let item of recipe['ingredients']; let i = index">
-		        		{{ item.title }} {{ item.quantity }} 
-		        	</ion-badge>
-				</ion-list>
-			</ion-item>
+				<ion-item>
+					<p>Recipe Ingredients:</p>
+					<ion-list>
+			        	<ion-badge item-end *ngFor="let item of recipe['ingredients']; let i = index">
+			        		{{ item.title }} {{ item.quantity }} 
+			        	</ion-badge>
+					</ion-list>
+				</ion-item>
 
-			<ion-item>
-				<p>Preparation Time:</p>
-				{{ recipe.prepTimeH }} h {{ recipe.prepTimeM }} m
-			</ion-item>
-		</ion-col>
-		<ion-col col-6 col-sm-12 col-md-6 col-lg-6 col-xl-6>
-			<ion-item>
-				<p>Recipe Instructions:</p>
-				{{ recipe.instructions }}
-			</ion-item>
-		</ion-col>
-	</ion-row>
+				<ion-item>
+					<p>Preparation Time:</p>
+					<span *ngIf='recipe.prepTimeH != 0'>{{recipe.prepTimeH}} h</span> <span>{{recipe.prepTimeM}} m</span>
+				</ion-item>
+			</ion-col>
+			<ion-col col-5 col-sm-12 col-md-5 col-lg-5 col-xl-5>
+				<ion-item>
+					<p>Recipe Instructions:</p>
+					{{ recipe.instructions }}
+				</ion-item>
+			</ion-col>
+		</ion-row>
 
-	<button ion-button (click)="createNewRecipe()">
-		Create New Recipe
-	</button>
+		<button ion-button (click)="createNewRecipe()">
+			Create New Recipe
+		</button>
+	</section>
 </ion-content>
 
 
